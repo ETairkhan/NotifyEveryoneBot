@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
@@ -49,6 +51,11 @@ func (b *Bot) Start() error {
 					msg.ParseMode = "HTML"
 					b.api.Send(msg)
 				}
+			case "id":
+				// Отправляем ID чата
+				msg := tgbotapi.NewMessage(update.Message.Chat.ID,
+					fmt.Sprintf("ID этой группы: %d", update.Message.Chat.ID))
+				b.api.Send(msg)
 			}
 		}
 	}
